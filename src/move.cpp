@@ -1,6 +1,6 @@
 class MyVector {
 private:
-	int* data
+	int* data;
 	size_t size;
 
 public:
@@ -9,14 +9,27 @@ public:
 	}
 
 	~MyVector() {
-		delete[] data
+		delete[] data;
 	}
 
 	MyVector(const MyVector& vector) :
 		size(vector.size), data(vector.size > 0 ? new int[vector.size] : nullptr) {
 		if (size > 0) {
-			std::copy(vector.data, vector.data + size, data)
+			std::copy(vector.data, vector.data + size, data);
 		}
 	}
 
+	MyVector& operator=(const MyVector& vector) {
+		if (this != &vector) { 
+			delete[] data; 
+
+			size = vector.size;
+			data = (size > 0 ? new int[size] : nullptr);
+
+			if (size > 0) {
+				std::copy(vector.data, vector.data + size, data); 
+			}
+		}
+		return *this;
+	}
 };

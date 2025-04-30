@@ -38,4 +38,17 @@ public:
 		other.data = nullptr;
 		other.size = 0;
 	}
+
+	MyVector& operator=(const MyVector&& vector) {
+		if (this != &&vector) {
+			delete[] data;
+
+			size = vector.size;
+			data = (size > 0 ? new int[size] : nullptr);
+
+			vector.data = nullptr;
+			vector.size = 0;
+		}
+		return *this;
+	}
 };

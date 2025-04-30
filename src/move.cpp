@@ -32,4 +32,10 @@ public:
 		}
 		return *this;
 	}
+
+	MyVector(MyVector&& other) noexcept
+		: data(other.data), size(other.size) { 
+		other.data = nullptr;
+		other.size = 0;
+	}
 };

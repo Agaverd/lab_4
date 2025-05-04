@@ -5,6 +5,4 @@ project(lab_4)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
-set(SOURCE_FILES main.cpp src/move.cpp) #учусь использовать переменные
-
-add_executable(lab_4_test ${SOURCE_FILES})
+add_executable(task_1 task_1/test_1.cpp)

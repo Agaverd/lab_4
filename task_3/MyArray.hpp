@@ -16,6 +16,8 @@ public:
 
     ArrayT& operator=(const ArrayT&);
 
+    void Resize(const std::ptrdiff_t size);
+
 	//getters
     [[nodiscard]] std::ptrdiff_t Size() const noexcept {return size_;} 
     [[nodiscard]] std::ptrdiff_t Capacity() const noexcept { return capacity_; }
@@ -47,6 +49,27 @@ ArrayT<T>::ArrayT(const std::ptrdiff_t size) :
         throw std::invalid_argument("ArrayT's size cant's be less than 1");
     }
     data_ = std::make_unique<T[]>(size);
+}
+
+template<class T>
+void ArrayT<T>::Resize(const std::ptrdiff_t size) {
+    if (size < 0) {
+        throw std::invalid_argument("ArrayT's size cant's be less than 1");
+    }
+    if (capacity_ < size) {
+        auto buf = std::make_unique<T[]>(size);
+        if (0 < size_) {
+            std::copy(data_.get(), data_.get() + size_, buf.get());
+        }
+        std::swap(data_, buf);
+        capacity_ = size;
+    }
+    else {
+        if (size_ < size) {
+            std::fill(data_.get() + size_, data_.get() + size, T());
+        }
+    }
+    size_ = size;
 }
 
 template<class T>

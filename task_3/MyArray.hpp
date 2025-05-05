@@ -14,8 +14,13 @@ public:
 
     ArrayT(const std::ptrdiff_t size);
 
+	//getters
     [[nodiscard]] std::ptrdiff_t Size() const noexcept {return size_;} 
     [[nodiscard]] std::ptrdiff_t Capacity() const noexcept { return capacity_; }
+
+	//accessors
+    [[nodiscard]] T& operator[](const std::ptrdiff_t idx);
+    [[nodiscard]] const T& operator[](const std::ptrdiff_t idx) const;
 
 private:
     std::ptrdiff_t capacity_ = 0;

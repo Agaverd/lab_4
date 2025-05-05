@@ -7,6 +7,7 @@ template<class T>
 class ArrayT {
 public:
     ArrayT() = default;
+
     ArrayT(const ArrayT&);
 
     ArrayT(const std::ptrdiff_t size);
@@ -14,5 +15,7 @@ public:
     ~ArrayT() = default;
 
 private:
-
+    std::ptrdiff_t capacity_ = 0;
+    std::ptrdiff_t size_ = 0;
+    std::unique_ptr<T[]> data_;
 };

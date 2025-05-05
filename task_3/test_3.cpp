@@ -38,15 +38,27 @@ void TestCopyConstructor() {
 	std::cout << "TestCopyConstructor passed" << std::endl;
 }
 
+void TestAssignmentOperator() {
+	ArrayT<std::string> arr1(2);
+	arr1[0] = "NUST"; arr1[1] = "MISIS";
+	ArrayT<std::string> arr2;
+	arr2 = arr1;
+
+	assert(arr2.Size() == 2);
+	assert(arr2[0] == "NUST" && arr2[1] == "MISIS");
+
+	std::cout << "TestAssignmentOperator passed\n";
+}
+
 
 int main() {
 	//Test cases
 	TestDefaultConstructor();
 	TestSizeConstructor();
 	TestCopyConstructor();
+	TestAssignmentOperator();
 
 	// indev
-	//TestAssignmentOperator();
 	//TestAccessOperator();
 	std::cout << "________________\n\nAll tests passed!" << std::endl;
 

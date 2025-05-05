@@ -41,7 +41,7 @@ public:
 		vector.size = 0;
 	}
 
-	MyVector& operator=(MyVector&& vector) {
+	MyVector&  operator=(MyVector&& vector ) noexcept {
 		delete[] data;
 
 		size = vector.size;

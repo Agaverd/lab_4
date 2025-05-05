@@ -50,6 +50,27 @@ void TestAssignmentOperator() {
 	std::cout << "TestAssignmentOperator passed\n";
 }
 
+void TestAccessOperator() {
+	ArrayT<double> arr(3);
+	arr[0] = 1.0; arr[1] = 1.41; arr[2] = 1.73;
+
+	assert(arr[0] == 1.0 && arr[1] == 1.41 && arr[2] == 1.73);
+
+	try {
+		double val = arr[-1];
+		assert(false && "Expected exception weren't thrown");
+	}
+	catch (const std::invalid_argument&) {}
+
+	try {
+		double val = arr[3];
+		assert(false && "Expected exception weren't thrown");
+	}
+	catch (const std::invalid_argument&) {
+		std::cout << "TestAccessOperator passed" << std::endl;
+	}
+}
+
 
 int main() {
 	//Test cases
@@ -57,9 +78,10 @@ int main() {
 	TestSizeConstructor();
 	TestCopyConstructor();
 	TestAssignmentOperator();
+	TestAccessOperator();
 
 	// indev
-	//TestAccessOperator();
+
 	std::cout << "________________\n\nAll tests passed!" << std::endl;
 
 	return 0;

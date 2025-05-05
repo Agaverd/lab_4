@@ -14,6 +14,8 @@ public:
 
     ArrayT(const std::ptrdiff_t size);
 
+    ArrayT& operator=(const ArrayT&);
+
 	//getters
     [[nodiscard]] std::ptrdiff_t Size() const noexcept {return size_;} 
     [[nodiscard]] std::ptrdiff_t Capacity() const noexcept { return capacity_; }
@@ -26,5 +28,49 @@ public:
 private:
     std::ptrdiff_t capacity_ = 0;
     std::ptrdiff_t size_ = 0;
-    std::unique_ptr<T[]> data
+    std::unique_ptr<T[]> data;
 };
+
+template<class T>
+ArrayT<T>::ArrayT(const ArrayT<T>& src) : 
+    capacity_(src.size_), 
+    size_(capacity_), 
+    data_(std::make_unique<T[]>(src.size_)) {
+    std::copy(src.data_.get(), src.data_.get() + size_, data_.get());
+}
+
+template<class T>
+ArrayT<T>::ArrayT(const std::ptrdiff_t size) : 
+    capacity_(size), 
+    size_(size) {
+    if (size_ <= 0) {
+        throw std::invalid_argument("ArrayT's size cant's be less than 1");
+    }
+    data_ = std::make_unique<T[]>(size);
+}
+
+template<class T>
+ArrayT<T>& ArrayT<T>::operator=(const ArrayT<T>& rhs) {
+    if (this != &rhs) {
+        Resize(rhs.size_);
+        std::copy(rhs.data_.get(), rhs.data_.get() + size_, data_.get());
+    }
+    return *this;
+}
+
+
+template<class T>
+T& ArrayT<T>::operator[](const std::ptrdiff_t idx) {
+    if (idx < 0 || size_ <= idx) {
+        throw std::invalid_argument("Id out if range");
+    }
+    return *(data_.get() + idx);
+}
+
+template<class T>
+const T& ArrayT<T>::operator[](const std::ptrdiff_t idx) const {
+    if (idx < 0 || size_ <= idx) {
+        throw std::invalid_argument("Id out if range");
+    }
+    return *(data_.get() + idx);
+}

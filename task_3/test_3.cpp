@@ -27,13 +27,25 @@ void TestSizeConstructor() {
 	}
 }
 
+void TestCopyConstructor() {
+	ArrayT<int> src(5);
+	src[0] = 1; src[1] = 2; src[2] = 3 ; src[3] = 4; src[4] = 5;
+
+	ArrayT<int> copy(src);
+	assert(copy.Size() == 5);
+	assert(copy[0] == 1 && copy[1] == 2 && copy[2] == 3 && copy[3] == 4 && copy[4] == 5);
+
+	std::cout << "TestCopyConstructor passed" << std::endl;
+}
+
+
 int main() {
 	//Test cases
 	TestDefaultConstructor();
 	TestSizeConstructor();
+	TestCopyConstructor();
 
 	// indev
-	//TestCopyConstructor();
 	//TestAssignmentOperator();
 	//TestAccessOperator();
 

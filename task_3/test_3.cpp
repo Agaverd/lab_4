@@ -71,6 +71,25 @@ void TestAccessOperator() {
 	}
 }
 
+void TestResize() {
+	ArrayT<int> arr(2);
+	arr[0] = 1; arr[1] = 2;
+
+	try{
+		// resize to smaller
+		arr.Resize(1);
+		assert(arr.Size() == 1 && arr[0] == 1);
+
+		// resize to larger
+		arr.Resize(3);
+		assert(arr.Size() == 3 && arr[0] == 1);
+	}
+	catch (const std::invalid_argument&) {
+		assert(false && "Expected exception weren't thrown");
+	}
+
+	std::cout << "TestResize passed" << std::endl;
+}
 
 int main() {
 	//Test cases
@@ -79,6 +98,7 @@ int main() {
 	TestCopyConstructor();
 	TestAssignmentOperator();
 	TestAccessOperator();
+	TestResize();
 
 	// indev
 

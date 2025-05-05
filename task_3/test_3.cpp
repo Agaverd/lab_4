@@ -48,6 +48,7 @@ int main() {
 	// indev
 	//TestAssignmentOperator();
 	//TestAccessOperator();
+	std::cout << "________________\n\nAll tests passed!" << std::endl;
 
 	return 0;
 }
